@@ -4,6 +4,8 @@ using System.Text;
 
 namespace MicoServer.Packets {
     public class Packet {
+        const int DATA_START = 5;
+
         public PacketType Type;
         public int DataSize;
         public byte[] Data;
@@ -17,7 +19,7 @@ namespace MicoServer.Packets {
         }
 
         public Packet(byte[] data) {
-            if (data.Length < 5) { // byte + int = 5 bytes
+            if (data.Length < DATA_START) {
                 throw new FormatException("Data must be 5 bytes or more.");
             }
 
@@ -25,7 +27,7 @@ namespace MicoServer.Packets {
             DataSize = data[1] | (data[2] << 8) | (data[3] << 16) | (data[4] << 24);
             Data = new byte[DataSize];
             try {
-                Array.Copy(data, 5, Data, 0, DataSize);
+                Array.Copy(data, DATA_START, Data, 0, DataSize);
             } catch (Exception) { }
         }
 
@@ -37,7 +39,7 @@ namespace MicoServer.Packets {
             data[2] = (byte)((DataSize >> 8) & 0xF);
             data[3] = (byte)((DataSize >> 16) & 0xF);
             data[4] = (byte)((DataSize >> 24) & 0xF);
-            Array.Copy(Data, 0, data, 5, DataSize);
+            Array.Copy(Data, 0, data, DATA_START, DataSize);
 
             return data;
         }

@@ -5,9 +5,9 @@ using System.Text;
 namespace MicoServer.Packets {
     public class PacketBuilder {
         public PacketType pType = (PacketType)(-1);
-        public int dataSize = 0;
+        public int dataSize;
         byte[] buffer = new byte[0];
-        int dataRead = 0;
+        int dataRead;
 
         public bool Feed(byte[] data) {
             if (data.Length == 0) {

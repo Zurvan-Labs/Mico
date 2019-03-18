@@ -12,12 +12,21 @@ namespace MicoServer.Packets {
 
         public Packet() {}
 
+        /// <summary>
+        /// Create a new generic packet object.
+        /// </summary>
+        /// <param name="type">Type of the packet.</param>
+        /// <param name="data">The raw data for the packet.</param>
         public Packet(PacketType type, byte[] data) {
             Type = type;
             Data = data;
             DataSize = data.Length;
         }
 
+        /// <summary>
+        /// Deserialize a set of bytes and construct a packet object.
+        /// </summary>
+        /// <param name="data"></param>
         public Packet(byte[] data) {
             if (data.Length < DATA_START) {
                 throw new FormatException("Data must be "+DATA_START+" bytes or more.");
@@ -31,6 +40,10 @@ namespace MicoServer.Packets {
             } catch (Exception) { }
         }
 
+        /// <summary>
+        /// Serializes the packet into raw bytes.
+        /// </summary>
+        /// <returns></returns>
         public byte[] Serialize() {
             byte[] data = new byte[DataSize + 5];
 

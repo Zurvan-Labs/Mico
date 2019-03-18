@@ -49,5 +49,22 @@ namespace MicoServerTests {
             Packet packet = new Packet(raw);
             CollectionAssert.AreEqual(data, packet.Data);
         }
+
+        [TestMethod]
+        [TestCategory("Serializing")] 
+        public void Test_Correct_Serialization_From_Raw_Bytes() {
+            byte[] data = { 0, 1, 0, 0, 0, 123 };
+            Packet packet = new Packet(data);
+            byte[] serialized = packet.Serialize();
+            CollectionAssert.AreEqual(data, serialized);
+        }
+
+        [TestMethod]
+        [TestCategory("Serializing")]
+        public void Test_Correct_Serialization_From_Constructor_Params() {
+            Packet packet = new Packet(PacketType.Generic, new byte[] { 1, 2, 3 });
+            byte[] serialized = packet.Serialize();
+            CollectionAssert.AreEqual(new byte[]{ 0, 3, 0, 0, 0, 1, 2, 3 }, serialized);
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace MicoServer.Packets {
 
         public Packet(byte[] data) {
             if (data.Length < DATA_START) {
-                throw new FormatException("Data must be 5 bytes or more.");
+                throw new FormatException("Data must be "+DATA_START+" bytes or more.");
             }
 
             Type = (PacketType)data[0];

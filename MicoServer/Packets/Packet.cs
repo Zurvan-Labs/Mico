@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MicoServer.Packets {
     public class Packet {
-        const int DATA_START = 5;
+        public const int DATA_START = 5;
 
         public PacketType Type;
         public int DataSize;

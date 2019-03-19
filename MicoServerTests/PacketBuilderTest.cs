@@ -23,5 +23,26 @@ namespace MicoServerTests {
             Assert.AreEqual(stage4, true);
             Assert.AreEqual(stage5, true);
         }
+
+        [TestMethod]
+        public void Test_Feed_Returns_Correct_Value_From_Whole_Array() {
+            PacketBuilder builder = new PacketBuilder();
+
+            bool result = builder.Feed(new byte[] { 0, 1, 0, 0, 0, 42 });
+
+            Assert.AreEqual(result, true);
+        }
+
+        [TestMethod]
+        public void Test_Returns_Correct_Parsed_Generic_Packet_type() {
+            PacketBuilder builder = new PacketBuilder();
+
+            builder.Feed(new byte[] { 0, 1, 0, 0, 0, 42  });
+            GenericPacket packet = builder.BuildPacket<GenericPacket>();
+
+            Assert.AreEqual(PacketType.Generic, packet.Type);
+            Assert.AreEqual(1, packet.DataSize);
+            CollectionAssert.AreEqual(new byte[] { 42 }, packet.Data);
+        }
     }
 }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace MicoServer.Packets {
-    class GenericPacket : Packet {
-
+    public class GenericPacket : Packet {
+        public GenericPacket(PacketType type, byte[] data) : base(type, data) {
+        }
     }
 }

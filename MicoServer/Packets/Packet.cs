@@ -9,9 +9,7 @@ namespace MicoServer.Packets {
         public PacketType Type;
         public int DataSize;
         public byte[] Data;
-
-        public Packet() {}
-
+        
         /// <summary>
         /// Create a new generic packet object.
         /// </summary>

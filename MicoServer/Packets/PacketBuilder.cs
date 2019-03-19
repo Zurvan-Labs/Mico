@@ -22,7 +22,7 @@ namespace MicoServer.Packets {
 
             if (dataRead < Packet.HEADER_SIZE) {
                 int j;
-                for (j = 0; dataRead + i < Packet.HEADER_SIZE && i+j < data.Length; j++, dataRead++) {
+                for (j = 0; dataRead < Packet.HEADER_SIZE && i+j < data.Length; j++, dataRead++) {
                     dataSize |= (data[i+j] << (8 * (dataRead - 1)));
                 }
 
@@ -43,7 +43,10 @@ namespace MicoServer.Packets {
         }
 
         public T BuildPacket<T>() where T : Packet {
-            throw new NotImplementedException();
+            return (T)Activator.CreateInstance(typeof(T), new object[] {
+                pType,
+                buffer
+            });
         }
     }
 }
